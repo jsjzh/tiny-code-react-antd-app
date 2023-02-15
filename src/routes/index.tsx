@@ -20,12 +20,12 @@ const routes: RouteObject[] = [
   {
     path: "/",
     element: <LayoutContainer />,
-    children: [{ path: "/Hook", element: lazyLoad(<Home />) }],
+    children: [{ path: "/Home", element: lazyLoad(<Home />) }],
   },
   {
     path: "/default",
     element: <LayoutBlank />,
-    children: [{ path: "/default/Hook", element: lazyLoad(<Home />) }],
+    children: [{ path: "/default/Home", element: lazyLoad(<Home />) }],
   },
   { path: "*", element: lazyLoad(<NotFound />) },
 ];

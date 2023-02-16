@@ -9,6 +9,7 @@ import type { ReactNode } from "react";
 import type { RouteObject } from "react-router-dom";
 
 const Home = lazy(() => import("@/pages/Home"));
+const Jump = lazy(() => import("@/pages/Jump"));
 
 const NotFound = lazy(() => import("@/pages/404"));
 
@@ -20,12 +21,18 @@ const routes: RouteObject[] = [
   {
     path: "/",
     element: <LayoutContainer />,
-    children: [{ path: "/Home", element: lazyLoad(<Home />) }],
+    children: [
+      { path: "/home", element: lazyLoad(<Home />) },
+      { path: "/jump/:id", element: lazyLoad(<Jump />) },
+    ],
   },
   {
     path: "/default",
     element: <LayoutBlank />,
-    children: [{ path: "/default/Home", element: lazyLoad(<Home />) }],
+    children: [
+      { path: "/default/home", element: lazyLoad(<Home />) },
+      { path: "/default/jump", element: lazyLoad(<Jump />) },
+    ],
   },
   { path: "*", element: lazyLoad(<NotFound />) },
 ];

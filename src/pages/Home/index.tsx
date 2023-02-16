@@ -3,6 +3,7 @@ import { allAPI } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 
 import { create } from "zustand";
+import { useNavigate } from "react-router-dom";
 
 interface IStore {
   id: number;
@@ -17,6 +18,7 @@ const useStore = create<IStore & { setId: (data: { id: number }) => any }>(
 
 const Home: React.FC = () => {
   const idHandler = useStore();
+  const navigate = useNavigate();
 
   const { data, isLoading } = useQuery({
     queryKey: ["getUser", idHandler.id],
@@ -28,11 +30,16 @@ const Home: React.FC = () => {
     idHandler.setId({ id: id > 10 ? 10 : id < 1 ? 1 : id });
   };
 
+  const handleJump = () => {
+    navigate("/jump/123?author=jack&age=18");
+  };
+
   return (
     <div>
       <div>
         <button onClick={() => handleQuery(1)}>click +</button>
         <button onClick={() => handleQuery(-1)}>click -</button>
+        <button onClick={handleJump}>jump</button>
       </div>
       {isLoading ? (
         <>获取数据中...</>

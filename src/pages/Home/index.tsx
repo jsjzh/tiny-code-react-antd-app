@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import { allAPI } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 
+import { create } from "zustand";
+
+interface IStore {
+  id: number;
+}
+
+const useStore = create<IStore & { setId: (data: { id: number }) => any }>(
+  (set) => ({
+    id: 1,
+    setId: (data) => set(data),
+  })
+);
+
 const Home: React.FC = () => {
-  const [query, setQuery] = useState({ id: 1 });
+  const idHandler = useStore();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["getUser", query],
-    queryFn: () => allAPI.getUser(query),
+    queryKey: ["getUser", idHandler.id],
+    queryFn: () => allAPI.getUser({ id: idHandler.id }),
   });
 
   const handleQuery = (count: number) => {
-    const id = query.id + count;
-    setQuery({ id: id > 10 ? 10 : id < 1 ? 1 : id });
+    const id = idHandler.id + count;
+    idHandler.setId({ id: id > 10 ? 10 : id < 1 ? 1 : id });
   };
 
   return (

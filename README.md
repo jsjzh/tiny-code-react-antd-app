@@ -7,9 +7,8 @@
 1. react18
 2. vite
 3. react-router-dom
-4. react-qurey axios
-   1. swr
-5. jotai zustand valtio RTK
+4. react-qurey axios ~~swr~~
+5. zustand ~~jotai valtio RTK~~
 6. lodash immer
 7. ahooks react-dnd
 

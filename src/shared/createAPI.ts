@@ -127,8 +127,6 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
 
     const promise: IRequestResult<T> = axios(url, opts)
       .then(checkStatus)
-      .then((resp) => resp.data)
-      .then(checkResp)
       .then((resp) => handleResp(resp))
       .catch((err) => {
         if (axios.isCancel(err)) {
@@ -149,19 +147,6 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
       }
 
       throw new APIError(`[${resp.status}] 请求错误 ${resp.config.url}`);
-    }
-
-    function checkResp(data: {
-      success: boolean;
-      data: T;
-      msg: string;
-      code: number;
-    }) {
-      if (data.success) {
-        return data;
-      }
-
-      throw new APIError(`[${data.code}] 请求失败 ${data.msg}`);
     }
   }
 

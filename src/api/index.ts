@@ -1,3 +1,3 @@
-import * as mockAPI from "./mock";
+import * as allAPI from "./all";
 
-export { mockAPI };
+export { allAPI };

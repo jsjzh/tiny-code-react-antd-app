@@ -22,11 +22,15 @@ const LayoutContainer: React.FC = () => {
   return (
     <div className="container">
       <div className="side">
-        <div className="logo">Tiny</div>
+        <div className="logo">
+          <span>Tiny</span>
+        </div>
         {createMenu(routes)}
       </div>
       <div className="content">
-        <div className="header">header</div>
+        <div className="header">
+          <span>header</span>
+        </div>
         <Outlet />
       </div>
     </div>

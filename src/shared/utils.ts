@@ -7,7 +7,7 @@ import {
   upperCase,
   isPlainObject,
   isArray,
-} from "lodash-es";
+} from "lodash";
 
 const caseMaps = {
   snakeCase,

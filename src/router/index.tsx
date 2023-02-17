@@ -17,7 +17,7 @@ const lazyLoad = (children: ReactNode): ReactNode => {
   return <Suspense fallback={<Loading />}>{children}</Suspense>;
 };
 
-const routes: RouteObject[] = [
+const router: RouteObject[] = [
   {
     path: "/",
     element: <LayoutContainer />,
@@ -37,4 +37,4 @@ const routes: RouteObject[] = [
   { path: "*", element: lazyLoad(<NotFound />) },
 ];
 
-export default routes;
+export default router;

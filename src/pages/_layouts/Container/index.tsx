@@ -1,10 +1,10 @@
 import React from "react";
 import { Link, Outlet, RouteObject } from "react-router-dom";
-import routes from "@/routes";
+import router from "@/router";
 import "./index.css";
 
-const createMenu = (routes: RouteObject[]) => {
-  return <div>{routes.map(createMenuItem)}</div>;
+const createMenu = (router: RouteObject[]) => {
+  return <div>{router.map(createMenuItem)}</div>;
 };
 
 const createMenuItem = (route: RouteObject) => {
@@ -25,7 +25,7 @@ const LayoutContainer: React.FC = () => {
         <div className="logo">
           <span>Tiny</span>
         </div>
-        {createMenu(routes)}
+        {createMenu(router)}
       </div>
       <div className="content">
         <div className="header">

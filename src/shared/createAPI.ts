@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import qs from "query-string";
+import queryString from "query-string";
 import JSONP from "jsonp";
 import ExtendableError from "@/shared/error";
 
@@ -210,7 +210,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
     return request<T>(endpoint, {
       ...config,
       method: "post",
-      data: data instanceof FormData ? data : qs.stringify(data),
+      data: data instanceof FormData ? data : queryString.stringify(data),
     });
   }
 
@@ -286,7 +286,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
     const { handleResp = (resp: any) => resp.data } = config;
     return new Promise((resolve, reject) => {
       let url = `${protocol}//${host}/${endpoint}`;
-      if (params) url += `?${qs.stringify(params)}`;
+      if (params) url += `?${queryString.stringify(params)}`;
       JSONP(
         url,
         { prefix: `__${host.replace(/[^\w\d]/g, "")}` },

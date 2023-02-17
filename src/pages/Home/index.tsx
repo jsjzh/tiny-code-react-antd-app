@@ -1,72 +1,30 @@
-import React from "react";
-import { allAPI } from "@/api";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-
-import { create } from "zustand";
 import { useNavigate } from "react-router-dom";
 
-// import { pipe } from "lodash/fp";
-
-interface IStore {
-  id: number;
-}
-
-// https://github.com/pmndrs/zustand/blob/main/tests/middlewareTypes.test.tsx
-// https://zhuanlan.zhihu.com/p/475571377
-
-// const log = (config) => (set, get, api) =>
-//   config(
-//     (args) => {
-//       console.log("  applying", args);
-//       set(args);
-//       console.log("  new state", get());
-//     },
-//     get,
-//     api
-//   );
-
-// // 对set方法使用immer代理
-// const immer = (config) => (set, get, api) =>
-//   config(
-//     (partial, replace) => {
-//       const nextState =
-//         typeof partial === "function" ? produce(partial) : partial;
-//       return set(nextState, replace);
-//     },
-//     get,
-//     api
-//   );
-
-// const createStore = pipe(log, immer, create);
-
-// const useStore = createStore((set) => ({
-//   bears: 1,
-//   increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-// }));
-
-const useStore = create<IStore & { setId: (data: { id: number }) => any }>(
-  (set) => ({
-    id: 1,
-    setId: (data) => set(data),
-  })
-);
+import Loading from "@/components/Loading";
+import { allAPI } from "@/api";
+import { useGlobalStore } from "@/store";
+import queryString from "query-string";
 
 const Home: React.FC = () => {
-  const idHandler = useStore();
+  const [id, setId] = useState(1);
   const navigate = useNavigate();
+  const setUser = useGlobalStore((state) => state.setCurrentUser);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["getUser", idHandler.id],
-    queryFn: () => allAPI.getUser({ id: idHandler.id }),
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["getUser", id],
+    queryFn: () => allAPI.getUser({ id }),
+    onSuccess: setUser,
   });
 
   const handleQuery = (count: number) => {
-    const id = idHandler.id + count;
-    idHandler.setId({ id: id > 10 ? 10 : id < 1 ? 1 : id });
+    const _id = id + count;
+    setId(_id > 10 ? 10 : _id < 1 ? 1 : _id);
   };
 
   const handleJump = () => {
-    navigate("/jump/123?author=jack&age=18");
+    navigate(`/jump/${id}?${queryString.stringify({ from: "home" })}`);
   };
 
   return (
@@ -77,7 +35,7 @@ const Home: React.FC = () => {
         <button onClick={handleJump}>jump</button>
       </div>
       {isLoading ? (
-        <>获取数据中...</>
+        <Loading />
       ) : (
         <div>
           <div>email: {data?.email}</div>

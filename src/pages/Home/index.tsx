@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import queryString from "query-string";
 
 import Loading from "@/components/Loading";
 import { allAPI } from "@/api";
 import { useGlobalStore } from "@/store";
-import queryString from "query-string";
 
 const Home: React.FC = () => {
   const [id, setId] = useState(1);

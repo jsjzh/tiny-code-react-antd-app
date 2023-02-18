@@ -3,14 +3,12 @@ import { Link, Outlet, RouteObject } from "react-router-dom";
 import router from "@/router";
 import "./index.css";
 
-const createMenu = (router: RouteObject[]) => {
-  return <div>{router.map(createMenuItem)}</div>;
-};
+const createMenu = (router: RouteObject[]) => <>{router.map(createMenuItem)}</>;
 
 const createMenuItem = (route: RouteObject) => {
   return (
     <div style={{ paddingLeft: 20 }} key={route.path}>
-      <Link key={route.path} to={route.path as string}>
+      <Link key={route.path} to={route.path!}>
         {route.path}
       </Link>
       {Array.isArray(route.children) && createMenu(route.children)}

@@ -22,7 +22,7 @@ const router: RouteObject[] = [
     path: "/",
     element: <LayoutContainer />,
     children: [
-      { path: "/home", element: lazyLoad(<Home />) },
+      { path: "/", element: lazyLoad(<Home />) },
       { path: "/jump/:id", element: lazyLoad(<Jump />) },
     ],
   },
@@ -30,7 +30,7 @@ const router: RouteObject[] = [
     path: "/default",
     element: <LayoutBlank />,
     children: [
-      { path: "/default/home", element: lazyLoad(<Home />) },
+      { path: "/default", element: lazyLoad(<Home />) },
       { path: "/default/jump", element: lazyLoad(<Jump />) },
     ],
   },

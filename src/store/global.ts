@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { produce } from "immer";
+
 interface ICurrentUser {
   currentUser: Partial<D.User>;
 
@@ -8,16 +10,15 @@ interface ICurrentUser {
 type IGlobal = ICurrentUser;
 
 const useGlobalStore = create<IGlobal>((set, get, api) => ({
-  currentUser: {
-    name: undefined,
-    age: undefined,
-  },
+  currentUser: {},
 
   setCurrentUser: (currentUser) =>
-    set((state) => ({
-      ...state,
-      currentUser: { ...state.currentUser, ...currentUser },
-    })),
+    set(
+      produce((state) => ({
+        ...state,
+        currentUser: { ...state.currentUser, ...currentUser },
+      }))
+    ),
 }));
 
 export default useGlobalStore;

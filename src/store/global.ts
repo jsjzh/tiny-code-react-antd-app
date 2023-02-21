@@ -1,5 +1,4 @@
 import { create } from "zustand";
-
 interface ICurrentUser {
   currentUser: Partial<D.User>;
 

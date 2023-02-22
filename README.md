@@ -23,3 +23,7 @@ utility:lodash+immer
 css: [email protected]
 UX\UI : react-hot-toast react-spinners-kit @heroicons /react react-dnd timeago-react
 vite\typescript\ eslint prettier\ eslint-config-airbn eslint-config-airbnb-typescript
+
+Layout 去掉一个
+
+要有一个创建 route 的东西，现在导航都只能用 string，非常不好，我希望精确导航，比如，知道这个 route param 等等

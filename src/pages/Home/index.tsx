@@ -7,8 +7,6 @@ import Loading from "@/components/Loading";
 import { allAPI } from "@/api";
 import { useGlobalStore } from "@/store";
 
-import { Button } from "@material-ui/core";
-
 const Home: React.FC = () => {
   const [id, setId] = useState(1);
   const navigate = useNavigate();
@@ -32,9 +30,6 @@ const Home: React.FC = () => {
   return (
     <div>
       <div>
-        <Button variant="contained" color="primary">
-          你好，世界
-        </Button>
         <button onClick={() => handleQuery(1)}>click +</button>
         <button onClick={() => handleQuery(-1)}>click -</button>
         <button onClick={handleJump}>jump</button>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet, RouteObject } from "react-router-dom";
-import router from "@/router";
+import routes from "@/routes";
 import "./index.css";
 
 const createMenu = (router: RouteObject[]) => <>{router.map(createMenuItem)}</>;
@@ -23,7 +23,7 @@ const LayoutContainer: React.FC = () => {
         <div className="logo">
           <span>Tiny</span>
         </div>
-        {createMenu(router)}
+        {createMenu(routes)}
       </div>
       <div className="content">
         <div className="header">

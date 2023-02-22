@@ -1,9 +1,10 @@
-import { useGlobalStore } from "@/store";
 import React from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useGlobalStore } from "@/store";
+import { useSearchParams } from "react-router-dom";
+
+import PageWrapper from "@/components/PageWrapper";
 
 const Jump: React.FC = () => {
-  const params = useParams();
   const [searchParams] = useSearchParams();
 
   const user = useGlobalStore((state) => state.currentUser);
@@ -13,25 +14,23 @@ const Jump: React.FC = () => {
   });
 
   return (
-    <div>
+    <PageWrapper>
       <div>
-        从 url 获取来的 params: <span>{params.id}</span>
+        <div>url query from: {searchParams.get("from")}</div>
+        <div>url query id: {searchParams.get("id")}</div>
       </div>
 
       <div>
-        从 <span>{searchParams.get("from")} 页面</span> 跳转
-      </div>
+        <div>从 globalStore 获取来的数据如下</div>
 
-      <div>
-        <div>从 globalStore 获取来的数据</div>
-        <div>email: {user.email}</div>
         <div>id: {user.id}</div>
         <div>name: {user.name}</div>
-        <div>phone: {user.phone}</div>
         <div>username: {user.username}</div>
+        <div>email: {user.email}</div>
+        <div>phone: {user.phone}</div>
         <div>website: {user.website}</div>
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 export default Jump;

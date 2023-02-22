@@ -27,41 +27,39 @@ export interface IRoute {
 
 const routes: IRoute[] = [
   {
-    hide: true,
-    title: "登录",
-    path: "/login",
+    title: "首页",
+    path: "/home",
     element: <LayoutBlank />,
-    children: [{ title: "登录", path: "/login", element: lazyLoad(<Home />) }],
+    children: [{ title: "首页", path: "/home", element: lazyLoad(<Home />) }],
   },
   {
-    title: "首页",
-    path: "/homepage",
+    title: "跳转页",
+    path: "/jump",
     element: <LayoutContainer />,
+    children: [{ title: "跳转页", path: "/jump", element: lazyLoad(<Jump />) }],
+  },
+  {
+    title: "结果页",
+    path: "/result",
+    element: <LayoutBlank />,
     children: [
-      { title: "首页", path: "/homepage/home", element: lazyLoad(<Jump />) },
+      {
+        title: "无权限",
+        path: "/result/403",
+        element: lazyLoad(<NotAuthorized />),
+      },
+      {
+        title: "未知错误",
+        path: "/result/404",
+        element: lazyLoad(<NotFound />),
+      },
+      {
+        title: "服务器出错",
+        path: "/result/500",
+        element: lazyLoad(<ServerError />),
+      },
     ],
   },
-  { hide: true, title: "未知", path: "*", element: <NotFound /> },
 ];
-
-// const router: RouteObject[] = [
-//   {
-//     path: "/",
-//     element: <LayoutContainer />,
-//     children: [
-//       { path: "/", element: lazyLoad(<Home />) },
-//       { path: "/jump/:id", element: lazyLoad(<Jump />) },
-//     ],
-//   },
-//   {
-//     path: "/default",
-//     element: <LayoutBlank />,
-//     children: [
-//       { path: "/default", element: lazyLoad(<Home />) },
-//       { path: "/default/jump", element: lazyLoad(<Jump />) },
-//     ],
-//   },
-//   { path: "*", element: lazyLoad(<NotFound />) },
-// ];
 
 export default routes;

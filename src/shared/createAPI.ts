@@ -12,7 +12,7 @@ class APIError extends ExtendableError {
 type IRequestConfig = AxiosRequestConfig & {
   /**
    * 请求设置处理函数，可以使用这个参数统一处理请求设置
-   * 比如我希望我所有的请求都加上一个自定义的请求头：
+   * 比如希望所有的请求都加上一个自定义的请求头
    *
    * ```js
    * const api = createAPI(HOST, {

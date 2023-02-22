@@ -8,6 +8,8 @@ declare namespace D {
     name: string;
     username: string;
     email: string;
+    phone: string;
+    website: string;
     address: {
       street: string;
       suite: string;
@@ -15,8 +17,6 @@ declare namespace D {
       zipcode: string;
       geo: { lat: string; lng: string };
     };
-    phone: string;
-    website: string;
     company: { name: string; catchPhrase: string; bs: string };
   }
 }

@@ -1,36 +1,34 @@
 import React from "react";
-import { Link, Outlet, RouteObject } from "react-router-dom";
-import routes from "@/routes";
-import "./index.css";
+import { Outlet, Link } from "react-router-dom";
 
-const createMenu = (router: RouteObject[]) => <>{router.map(createMenuItem)}</>;
+import routes, { IRoute } from "@/routes";
 
-const createMenuItem = (route: RouteObject) => {
-  return (
-    <div style={{ paddingLeft: 20 }} key={route.path}>
-      <Link key={route.path} to={route.path!}>
-        {route.path}
+const createLinks = (routes: IRoute[]) => {
+  const results: React.ReactNode[] = [];
+
+  for (let index = 0; index < routes.length; index++) {
+    const route = routes[index];
+    if (route.hide) continue;
+    results.push(
+      <Link key={route.path} to={route.path}>
+        {route.title}
       </Link>
-      {Array.isArray(route.children) && createMenu(route.children)}
-    </div>
-  );
+    );
+
+    if (Array.isArray(route.children) && route.children.length) {
+      results.push(...createLinks(route.children));
+    }
+  }
+
+  return results;
 };
 
 const LayoutContainer: React.FC = () => {
   return (
-    <div className="container">
-      <div className="side">
-        <div className="logo">
-          <span>Tiny</span>
-        </div>
-        {createMenu(routes)}
-      </div>
-      <div className="content">
-        <div className="header">
-          <span>header</span>
-        </div>
-        <Outlet />
-      </div>
+    <div>
+      <div>{createLinks(routes)}</div>
+
+      <Outlet />
     </div>
   );
 };

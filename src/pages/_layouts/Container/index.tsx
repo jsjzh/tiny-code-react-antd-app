@@ -9,14 +9,14 @@ const createLinks = (routes: IRoute[]) => {
   for (let index = 0; index < routes.length; index++) {
     const route = routes[index];
     if (route.hide) continue;
-    results.push(
-      <Link key={route.path} to={route.path}>
-        {route.title}
-      </Link>
-    );
-
     if (Array.isArray(route.children) && route.children.length) {
       results.push(...createLinks(route.children));
+    } else {
+      results.push(
+        <Link key={route.path} to={route.path}>
+          {route.title} &nbsp;
+        </Link>
+      );
     }
   }
 

@@ -30,10 +30,6 @@ const Home: React.FC = () => {
     setId(_id > 10 ? 10 : _id < 1 ? 1 : _id);
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   if (isError) {
     return <ServerError />;
   }
@@ -41,8 +37,6 @@ const Home: React.FC = () => {
   return (
     <PageWrapper
       style={{
-        width: "100vw",
-        height: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -60,12 +54,18 @@ const Home: React.FC = () => {
         </div>
 
         <div style={{ margin: "1rem 0" }}>
-          <div>id: {data?.id}</div>
-          <div>name: {data?.name}</div>
-          <div>username: {data?.username}</div>
-          <div>email: {data?.email}</div>
-          <div>phone: {data?.phone}</div>
-          <div>website: {data?.website}</div>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <>
+              <div>id: {data?.id}</div>
+              <div>name: {data?.name}</div>
+              <div>username: {data?.username}</div>
+              <div>email: {data?.email}</div>
+              <div>phone: {data?.phone}</div>
+              <div>website: {data?.website}</div>
+            </>
+          )}
         </div>
 
         <div style={{ textAlign: "center" }}>
@@ -77,7 +77,7 @@ const Home: React.FC = () => {
               })
             }
           >
-            jump
+            to jump page
           </button>
         </div>
       </div>

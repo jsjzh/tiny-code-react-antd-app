@@ -1,11 +1,15 @@
 import React from "react";
 import { useGlobalStore } from "@/store";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import PageWrapper from "@/components/PageWrapper";
+import { compose } from "lodash/fp";
+import queryString from "query-string";
 
 const Jump: React.FC = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const jump = compose(navigate, queryString.stringifyUrl);
 
   const user = useGlobalStore((state) => state.currentUser);
 
@@ -14,21 +18,33 @@ const Jump: React.FC = () => {
   });
 
   return (
-    <PageWrapper>
-      <div>
-        <div>url query from: {searchParams.get("from")}</div>
-        <div>url query id: {searchParams.get("id")}</div>
-      </div>
+    <PageWrapper
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div style={{ margin: "1rem 0" }}>
+        <div>
+          <div>url query from: {searchParams.get("from")}</div>
+          <div>url query id: {searchParams.get("id")}</div>
+        </div>
 
-      <div>
-        <div>从 globalStore 获取来的数据如下</div>
+        <div style={{ margin: "1rem 0" }}>
+          <div>id: {user.id}</div>
+          <div>name: {user.name}</div>
+          <div>username: {user.username}</div>
+          <div>email: {user.email}</div>
+          <div>phone: {user.phone}</div>
+          <div>website: {user.website}</div>
+        </div>
 
-        <div>id: {user.id}</div>
-        <div>name: {user.name}</div>
-        <div>username: {user.username}</div>
-        <div>email: {user.email}</div>
-        <div>phone: {user.phone}</div>
-        <div>website: {user.website}</div>
+        <div style={{ textAlign: "center" }}>
+          <button onClick={() => jump({ url: "/home" })}>
+            back to home page
+          </button>
+        </div>
       </div>
     </PageWrapper>
   );

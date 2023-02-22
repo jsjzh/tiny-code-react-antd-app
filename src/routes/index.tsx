@@ -3,7 +3,7 @@ import React, { lazy, Suspense } from "react";
 import Loading from "@/components/Loading";
 
 import LayoutBlank from "@/pages/_layouts/Blank";
-import LayoutContainer from "@/pages/_layouts/Container";
+import LayoutMain from "@/pages/_layouts/Main";
 
 const Home = lazy(() => import("@/pages/Home"));
 const Jump = lazy(() => import("@/pages/Jump"));
@@ -35,7 +35,7 @@ const routes: IRoute[] = [
   {
     title: "跳转页",
     path: "/jump",
-    element: <LayoutContainer />,
+    element: <LayoutMain />,
     children: [{ title: "跳转页", path: "/jump", element: lazyLoad(<Jump />) }],
   },
   {

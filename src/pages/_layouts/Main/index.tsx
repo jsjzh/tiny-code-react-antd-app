@@ -23,7 +23,7 @@ const createLinks = (routes: IRoute[]) => {
   return results;
 };
 
-const LayoutContainer: React.FC = () => {
+const Main: React.FC = () => {
   return (
     <div>
       <div>{createLinks(routes)}</div>
@@ -33,4 +33,4 @@ const LayoutContainer: React.FC = () => {
   );
 };
 
-export default LayoutContainer;
+export default Main;

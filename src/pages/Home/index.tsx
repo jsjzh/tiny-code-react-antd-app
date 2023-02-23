@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import { compose } from "lodash/fp";
+import { compose } from "ramda";
 
 import { allAPI } from "@/api";
 import { useGlobalStore } from "@/store";
@@ -15,6 +15,7 @@ const Home: React.FC = () => {
 
   const navigate = useNavigate();
 
+  // @ts-ignore
   const jump = compose(navigate, queryString.stringifyUrl);
 
   const setUser = useGlobalStore((state) => state.setCurrentUser);

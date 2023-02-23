@@ -11,7 +11,7 @@
 3. react-router-dom
 4. react-qurey axios ~~swr~~
 5. zustand ~~jotai valtio RTK~~
-6. lodash immer use-immer
+6. ramda immer use-immer ~~lodash~~
 7. ahooks react-dnd
 
 animation: framer-motion + Three.js

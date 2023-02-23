@@ -3,12 +3,14 @@ import { useGlobalStore } from "@/store";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import PageWrapper from "@/components/PageWrapper";
-import { compose } from "lodash/fp";
+import { compose } from "ramda";
 import queryString from "query-string";
 
 const Jump: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  // @ts-ignore
   const jump = compose(navigate, queryString.stringifyUrl);
 
   const user = useGlobalStore((state) => state.currentUser);

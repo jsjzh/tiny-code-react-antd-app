@@ -7,6 +7,7 @@ import LayoutMain from "@/pages/_layouts/Main";
 
 const Home = lazy(() => import("@/pages/Home"));
 const Jump = lazy(() => import("@/pages/Jump"));
+const Test = lazy(() => import("@/pages/Test"));
 
 const NotFound = lazy(() => import("@/pages/results/NotFound"));
 const NotAuthorized = lazy(() => import("@/pages/results/NotAuthorized"));
@@ -31,6 +32,12 @@ const routes: IRoute[] = [
     path: "/home",
     element: <LayoutBlank />,
     children: [{ title: "首页", path: "/home", element: lazyLoad(<Home />) }],
+  },
+  {
+    title: "测试",
+    path: "/test",
+    element: <LayoutBlank />,
+    children: [{ title: "测试", path: "/test", element: lazyLoad(<Test />) }],
   },
   {
     title: "跳转页",

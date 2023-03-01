@@ -17,6 +17,7 @@ const useTestStore = create(
   persist(
     combine({ bears: 0 }, (set) => ({
       increase: (by: number) => set((state) => ({ bears: state.bears + by })),
+      add: () => set((state) => ({ bears: state.bears + 1 })),
     })),
     { name: "useTestStore" }
   )

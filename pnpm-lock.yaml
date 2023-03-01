@@ -10,7 +10,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.54.0
   '@typescript-eslint/parser': ^5.54.0
   '@vitejs/plugin-react': ^3.1.0
-  ahooks: ^3.7.4
+  ahooks: ^3.7.5
   axios: ^1.3.4
   dayjs: ^1.11.7
   eslint: ^8.35.0
@@ -27,11 +27,11 @@ specifiers:
   typescript: ^4.9.5
   use-immer: ^0.8.1
   vite: ^4.1.4
-  zustand: ^4.3.4
+  zustand: ^4.3.5
 
 dependencies:
   '@tanstack/react-query': 4.24.10_biqbaboplfbrettd7655fr4n2y
-  ahooks: 3.7.4_react@18.2.0
+  ahooks: 3.7.5_react@18.2.0
   axios: 1.3.4
   dayjs: 1.11.7
   immer: 9.0.19
@@ -43,7 +43,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.8.2_biqbaboplfbrettd7655fr4n2y
   use-immer: 0.8.1_immer@9.0.19+react@18.2.0
-  zustand: 4.3.4_immer@9.0.19+react@18.2.0
+  zustand: 4.3.5_immer@9.0.19+react@18.2.0
 
 devDependencies:
   '@types/jsonp': 0.2.1
@@ -827,8 +827,8 @@ packages:
     resolution: {integrity: sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==}
     dev: false
 
-  /ahooks/3.7.4_react@18.2.0:
-    resolution: {integrity: sha512-hvgdqzPUKXn95mK3cGlDCi/ZZqv+FRibCUCFT8zW3hCwLGvixVfnHrIW2/2lgzPdLo8mLjp/XOdIJvcPvE2lgQ==}
+  /ahooks/3.7.5_react@18.2.0:
+    resolution: {integrity: sha512-RWkJYK5xj9ZXROj9jABRDqdpTBimkY1tlyeJQ8Ci7MAl1sC5xzSzwO20ydk6BjtdbWt56DPCYZhq4lGu3O2Zwg==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -2611,8 +2611,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zustand/4.3.4_immer@9.0.19+react@18.2.0:
-    resolution: {integrity: sha512-QSV8MF80I4yM9UCcBhIBr5OcQkiTbZdxDofg5R5vyX49QsEia7sK1iwOhFyH/0hyNVg+h+OzARM76G8MgMno0g==}
+  /zustand/4.3.5_immer@9.0.19+react@18.2.0:
+    resolution: {integrity: sha512-2iPUzfwx+g3f0PagOMz2vDO9mZzEp2puFpNe7vrAymVPOEIEUjCPkC4/zy84eAscxIWmTU4j9g6upXYkJdzEFQ==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       immer: '>=9.0'

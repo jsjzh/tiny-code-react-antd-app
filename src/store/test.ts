@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { produce } from "immer";
 import { combine, persist } from "zustand/middleware";
+import { compose, pipe, __ } from "ramda";
 
 // 使用 combine 自动推断类型
 // 感觉不太好，因为还有其他地方会用到 ITestStore 类型
@@ -48,16 +49,30 @@ const immer = (config) => (set, get, api) =>
     api
   );
 
-const useTestStore = create<ITestStore>()(
-  immer(
-    persist(
-      (set, get, api) => ({
-        bears: 0,
-        change: (count) => set((state) => ({ bears: state.bears + count })),
-      }),
-      { name: "useTestStore" }
-    )
-  )
+const demo = pipe(
+  // curry(persist(__, { name: "useTestStore" })),
+  log,
+  immer,
+  create
 );
+
+const useTestStore = demo((set) => ({
+  bears: 0,
+  change: (count) => set((state) => ({ bears: state.bears + count })),
+}));
+
+// const useTestStore = create<ITestStore>()(
+//   immer(
+//     log(
+//       persist(
+//         (set, get, api) => ({
+//           bears: 0,
+//           change: (count) => set((state) => ({ bears: state.bears + count })),
+//         }),
+//         { name: "useTestStore" }
+//       )
+//     )
+//   )
+// );
 
 export default useTestStore;

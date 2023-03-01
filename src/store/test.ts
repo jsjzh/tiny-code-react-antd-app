@@ -24,13 +24,39 @@ interface ITestFuns {
 
 export type ITestStore = ITestData & ITestFuns;
 
+// 每次状态变化时打印输出
+const log = (config) => (set, get, api) =>
+  config(
+    (args) => {
+      console.log("  applying", args);
+      set(args);
+      console.log("  new state", get());
+    },
+    get,
+    api
+  );
+
+// 对set方法使用immer代理
+const immer = (config) => (set, get, api) =>
+  config(
+    (partial, replace) => {
+      const nextState =
+        typeof partial === "function" ? produce(partial) : partial;
+      return set(nextState, replace);
+    },
+    get,
+    api
+  );
+
 const useTestStore = create<ITestStore>()(
-  persist(
-    (set, get, api) => ({
-      bears: 0,
-      change: (count) => set((state) => ({ bears: state.bears + count })),
-    }),
-    { name: "useTestStore" }
+  immer(
+    persist(
+      (set, get, api) => ({
+        bears: 0,
+        change: (count) => set((state) => ({ bears: state.bears + count })),
+      }),
+      { name: "useTestStore" }
+    )
   )
 );
 

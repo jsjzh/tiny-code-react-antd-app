@@ -13,7 +13,7 @@
 5. immer use-immer
 6. zustand ~~jotai valtio RTK~~
 7. ramda ~~lodash~~
-8. ahooks dayjs react-dnd
+8. dayjs ahooks react-dnd
 9. vite
 
 animation: framer-motion + Three.js

@@ -7,6 +7,7 @@ import { allAPI } from "@/api";
 import { useGlobalStore } from "@/store";
 import PageWrapper from "@/components/PageWrapper";
 import Loading from "@/components/Loading";
+import { sleepAsync } from "@/shared/utils";
 
 const Home: React.FC = () => {
   const [id, setId] = useState(1);
@@ -18,7 +19,7 @@ const Home: React.FC = () => {
 
   const global = useGlobalStore((state) => state);
 
-  const { data, isLoading } = useSWR(`/users/${id}`, () =>
+  const { data, isLoading, mutate } = useSWR([`/users/${id}`], () =>
     allAPI.getUser({ id })
   );
 

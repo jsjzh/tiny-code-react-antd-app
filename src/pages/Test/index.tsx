@@ -10,16 +10,16 @@ const mapStateToProps = (state: ITestStore) => state;
 const Test: React.FC<IProps> = (props) => {
   const testStore = useTestStore(mapStateToProps);
 
-  const bears = useTestStore(useCallback((state) => state.bears, []));
+  const num = useTestStore(useCallback((state) => state.num, []));
 
   return (
     <PageWrapper>
       <div>
-        <div>{bears}</div>
-        <div>{testStore.bears}</div>
+        <div>{num}</div>
+        <div>{testStore.num}</div>
         <div>
-          <button onClick={() => testStore.change(-1)}>-1</button>
-          <button onClick={() => testStore.change(1)}>+1</button>
+          <button onClick={() => testStore.update(-1)}>-1</button>
+          <button onClick={() => testStore.update(1)}>+1</button>
         </div>
       </div>
     </PageWrapper>

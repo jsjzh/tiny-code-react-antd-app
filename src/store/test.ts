@@ -1,7 +1,6 @@
 import { create } from "zustand";
-import { produce } from "immer";
-import { combine, persist } from "zustand/middleware";
-import { compose, pipe, __ } from "ramda";
+import { immer } from "zustand/middleware/immer";
+import { combine, devtools, persist } from "zustand/middleware";
 
 // 使用 combine 自动推断类型
 // 感觉不太好，因为还有其他地方会用到 ITestStore 类型
@@ -16,63 +15,29 @@ import { compose, pipe, __ } from "ramda";
 // );
 
 interface ITestData {
-  bears: number;
+  num: number;
 }
 
 interface ITestFuns {
-  change: (count: number) => void;
+  update: (count: number) => void;
 }
 
 export type ITestStore = ITestData & ITestFuns;
 
-// 每次状态变化时打印输出
-const log = (config) => (set, get, api) =>
-  config(
-    (args) => {
-      console.log("  applying", args);
-      set(args);
-      console.log("  new state", get());
-    },
-    get,
-    api
-  );
-
-// 对set方法使用immer代理
-const immer = (config) => (set, get, api) =>
-  config(
-    (partial, replace) => {
-      const nextState =
-        typeof partial === "function" ? produce(partial) : partial;
-      return set(nextState, replace);
-    },
-    get,
-    api
-  );
-
-const demo = pipe(
-  // curry(persist(__, { name: "useTestStore" })),
-  log,
-  immer,
-  create
+export const useTestStore = create<ITestStore>()(
+  devtools(
+    persist(
+      immer((set, get, api) => ({
+        num: 0,
+        update: (count) =>
+          set((draft) => {
+            draft.num = draft.num + count;
+          }),
+      })),
+      { name: "useTestStore" }
+    ),
+    { name: "useTestStore" }
+  )
 );
-
-const useTestStore = demo((set) => ({
-  bears: 0,
-  change: (count) => set((state) => ({ bears: state.bears + count })),
-}));
-
-// const useTestStore = create<ITestStore>()(
-//   immer(
-//     log(
-//       persist(
-//         (set, get, api) => ({
-//           bears: 0,
-//           change: (count) => set((state) => ({ bears: state.bears + count })),
-//         }),
-//         { name: "useTestStore" }
-//       )
-//     )
-//   )
-// );
 
 export default useTestStore;

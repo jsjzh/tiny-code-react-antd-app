@@ -6,13 +6,15 @@
 
 ## 草稿
 
-1. react18
-2. vite
-3. react-router-dom
-4. react-qurey axios ~~swr~~
-5. zustand ~~jotai valtio RTK~~
-6. ramda immer use-immer ~~lodash~~
-7. ahooks react-dnd
+1. react
+2. react-router-dom
+3. axios
+4. react-qurey or swr
+5. immer use-immer
+6. zustand ~~jotai valtio RTK~~
+7. ramda ~~lodash~~
+8. ahooks dayjs react-dnd
+9. vite
 
 animation: framer-motion + Three.js
 Router: react-router-dom

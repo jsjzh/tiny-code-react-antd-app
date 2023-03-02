@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import { compose } from "ramda";
-
+import { pipe } from "ramda";
+import useSWR from "swr";
 import { allAPI } from "@/api";
 import { useGlobalStore } from "@/store";
 import PageWrapper from "@/components/PageWrapper";
 import Loading from "@/components/Loading";
-import ServerError from "@/pages/results/ServerError";
 
 const Home: React.FC = () => {
   const [id, setId] = useState(1);
@@ -16,24 +14,20 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
 
   // @ts-ignore
-  const jump = compose(navigate, queryString.stringifyUrl);
+  const jump = pipe(queryString.stringifyUrl, navigate);
 
-  const setUser = useGlobalStore((state) => state.setCurrentUser);
+  const global = useGlobalStore((state) => state);
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["getUser", id],
-    queryFn: () => allAPI.getUser({ id }),
-    onSuccess: setUser,
-  });
+  const { data, isLoading } = useSWR(`/users/${id}`, () =>
+    allAPI.getUser({ id })
+  );
+
+  global.update({ currentUser: data });
 
   const handleQuery = (count: number) => {
     const _id = id + count;
     setId(_id > 10 ? 10 : _id < 1 ? 1 : _id);
   };
-
-  if (isError) {
-    return <ServerError />;
-  }
 
   return (
     <PageWrapper

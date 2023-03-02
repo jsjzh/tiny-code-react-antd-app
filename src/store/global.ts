@@ -1,24 +1,32 @@
 import { create } from "zustand";
-import { produce } from "immer";
+import { immer } from "zustand/middleware/immer";
+import { devtools, persist } from "zustand/middleware";
 
-interface ICurrentUser {
-  currentUser: Partial<D.User>;
-
-  setCurrentUser: (currentUser: ICurrentUser["currentUser"]) => void;
+interface IGlobalData {
+  currentUser?: D.User;
 }
 
-type IGlobal = ICurrentUser;
+interface IGlobalFunc {
+  update: (globalData: Partial<IGlobalData>) => void;
+}
 
-const useGlobalStore = create<IGlobal>((set, get, api) => ({
-  currentUser: {},
+type IGlobal = IGlobalData & IGlobalFunc;
 
-  setCurrentUser: (currentUser) =>
-    set(
-      produce((state) => ({
-        ...state,
-        currentUser: { ...state.currentUser, ...currentUser },
-      }))
+const useGlobalStore = create<IGlobal>()(
+  devtools(
+    persist(
+      immer((set, get, api) => ({
+        currentUser: undefined,
+
+        update: (globalData) =>
+          set((draft) => {
+            draft = { ...draft, ...globalData };
+          }),
+      })),
+      { name: "useGlobalStore" }
     ),
-}));
+    { name: "useGlobalStore" }
+  )
+);
 
 export default useGlobalStore;

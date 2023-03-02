@@ -1,8 +1,6 @@
 /// <reference types="vite/client" />
 
-declare namespace T {}
-
-declare namespace D {
+declare namespace T {
   interface User {
     id: number;
     name: string;
@@ -18,5 +16,11 @@ declare namespace D {
       geo: { lat: string; lng: string };
     };
     company: { name: string; catchPhrase: string; bs: string };
+  }
+  interface Post {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
   }
 }

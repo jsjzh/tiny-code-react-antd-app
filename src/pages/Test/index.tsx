@@ -1,14 +1,12 @@
 import React, { useCallback } from "react";
 
 import PageWrapper from "@/components/PageWrapper";
-import useTestStore, { ITestStore } from "@/store/test";
+import { useTestStore } from "@/store";
 
 interface IProps {}
 
-const mapStateToProps = (state: ITestStore) => state;
-
 const Test: React.FC<IProps> = (props) => {
-  const testStore = useTestStore(mapStateToProps);
+  const testStore = useTestStore((state) => state);
 
   const num = useTestStore(useCallback((state) => state.num, []));
 

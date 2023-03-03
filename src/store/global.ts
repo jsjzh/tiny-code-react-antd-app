@@ -3,7 +3,7 @@ import { immer } from "zustand/middleware/immer";
 import { devtools, persist } from "zustand/middleware";
 
 interface IGlobalData {
-  currentUser?: D.User;
+  currentUser?: T.User;
 }
 
 interface IGlobalFunc {

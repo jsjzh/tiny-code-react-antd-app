@@ -18,8 +18,8 @@ declare namespace T {
     company: { name: string; catchPhrase: string; bs: string };
   }
   interface Post {
-    userId: number;
     id: number;
+    userId: number;
     title: string;
     body: string;
   }

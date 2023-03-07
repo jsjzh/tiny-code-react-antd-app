@@ -4,6 +4,8 @@ import { devtools, persist } from "zustand/middleware";
 
 interface IGlobalData {
   currentUser?: T.User;
+
+  [k: string]: any;
 }
 
 interface IGlobalFunc {
@@ -18,9 +20,11 @@ const useGlobalStore = create<IGlobal>()(
       immer((set, get, api) => ({
         currentUser: undefined,
 
-        update: (globalData) =>
+        update: (data) =>
           set((draft) => {
-            draft = { ...draft, ...globalData };
+            Object.keys(data).forEach((key) => {
+              draft[key] = data[key];
+            });
           }),
       })),
       { name: "useGlobalStore" }

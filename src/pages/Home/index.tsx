@@ -1,83 +1,214 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import queryString from "query-string";
-import { pipe } from "ramda";
+import React from "react";
+import { omit, pick } from "ramda";
+import { useImmer } from "use-immer";
 import useSWR from "swr";
-import { allAPI } from "@/api";
-import { useGlobalStore } from "@/store";
+
 import PageWrapper from "@/components/PageWrapper";
-import Loading from "@/components/Loading";
+import { useGlobalStore } from "@/store";
+import { allAPI } from "@/api";
+
+let num = 999;
+
+const mapStateToProps = pick(["currentUser"]);
+
+interface IPostExtend {
+  isNew: boolean;
+  isEdit: boolean;
+}
 
 const Home: React.FC = () => {
-  const [id, setId] = useState(1);
+  const global = useGlobalStore(mapStateToProps);
 
-  const navigate = useNavigate();
+  const [pageData, updatePageData] = useImmer<{
+    posts: (T.Post & IPostExtend)[];
+  }>({
+    posts: [],
+  });
 
-  // @ts-ignore
-  const jump = pipe(queryString.stringifyUrl, navigate);
-
-  const global = useGlobalStore((state) => state);
-
-  const { data, isLoading, mutate } = useSWR([`/users/${id}`], () =>
-    allAPI.getUsersId({ id })
+  const { mutate: reGetPosts } = useSWR(
+    ["getPostsId"],
+    () => allAPI.getPosts(),
+    {
+      onSuccess(posts) {
+        updatePageData((draft) => {
+          draft.posts = posts
+            .slice(0, 5)
+            .map((post) => ({ ...post, isEdit: false, isNew: false }));
+        });
+      },
+    }
   );
 
-  global.update({ currentUser: data });
+  const handleAdd = () => {
+    const _num = num++;
 
-  const handleQuery = (count: number) => {
-    const _id = id + count;
-    setId(_id > 10 ? 10 : _id < 1 ? 1 : _id);
+    const newPost: T.Post & IPostExtend = {
+      id: _num,
+      body: "no data",
+      title: String(_num),
+      isNew: true,
+      isEdit: true,
+      userId: global.currentUser?.id!,
+    };
+
+    updatePageData((draft) => {
+      draft.posts.push(newPost);
+    });
+  };
+
+  const handleEdit = (id: number) => {
+    updatePageData((draft) => {
+      const post = draft.posts.find((post) => post.id === id);
+      post && (post.isEdit = true);
+    });
+  };
+
+  const handleDel = async (id: number) => {
+    await allAPI.deletePostsId({ id }).finally(() => {
+      updatePageData((draft) => {
+        const index = draft.posts.findIndex((post) => post.id === id);
+        index !== -1 && draft.posts.splice(index, 1);
+      });
+    });
+  };
+
+  const handleSave = async (id: number) => {
+    const $post: HTMLInputElement = document.getElementById(
+      `post_id_${id}`
+    ) as HTMLInputElement;
+
+    if (!$post) return;
+
+    const post = pageData.posts.find((post) => post.id === id);
+
+    if (!post) return;
+
+    if (post?.isNew) {
+      const newPost = {
+        ...post,
+        title: $post.value,
+      };
+
+      await allAPI
+        .postPosts(omit(["id", "isNew", "isEdit"], newPost))
+        .finally(() => {
+          updatePageData((draft) => {
+            const post = draft.posts.find((post) => post.id === id);
+            if (post) {
+              post.isEdit = false;
+              post.isNew = false;
+              post.title = $post.value;
+            }
+          });
+        });
+    } else {
+      await allAPI.patchPostsId(post).finally(() => {
+        updatePageData((draft) => {
+          const post = draft.posts.find((post) => post.id === id);
+          if (post) {
+            post.isEdit = false;
+            post.isNew = false;
+            post.title = $post.value;
+          }
+        });
+      });
+    }
+  };
+
+  const handleCancel = (id: number) => {
+    updatePageData((draft) => {
+      const post = draft.posts.find((post) => post.id === id);
+      post && (post.isEdit = false);
+    });
   };
 
   return (
-    <PageWrapper
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <button onClick={() => handleQuery(-1)}>id - 1</button>
-          <button onClick={() => handleQuery(1)}>id + 1</button>
-        </div>
-
-        <div style={{ margin: "1rem 0" }}>
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <>
-              <div>id: {data?.id}</div>
-              <div>name: {data?.name}</div>
-              <div>username: {data?.username}</div>
-              <div>email: {data?.email}</div>
-              <div>phone: {data?.phone}</div>
-              <div>website: {data?.website}</div>
-            </>
-          )}
-        </div>
-
-        <div style={{ textAlign: "center" }}>
-          <button
-            onClick={() =>
-              jump({
-                url: "/jump",
-                query: { from: "home", id },
-              })
-            }
+    <PageWrapper>
+      <div
+        style={{
+          width: "30rem",
+          display: "flex",
+          flexDirection: "column",
+          margin: "1rem auto",
+        }}
+      >
+        <div style={{ textAlign: "right" }}>
+          <span
+            style={{ padding: "0.5rem", cursor: "pointer" }}
+            onClick={handleAdd}
           >
-            to jump page
-          </button>
+            add
+          </span>
         </div>
+        {pageData.posts.map((post) => (
+          <div
+            key={post.id}
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {post.isEdit ? (
+              <input
+                id={`post_id_${post.id}`}
+                style={{
+                  flex: 1,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+                defaultValue={post.title}
+              />
+            ) : (
+              <div
+                style={{
+                  flex: 1,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {post.title}
+              </div>
+            )}
+
+            {!post.isEdit && (
+              <>
+                <div
+                  style={{ padding: "0.5rem", cursor: "pointer" }}
+                  onClick={() => handleEdit(post.id)}
+                >
+                  edit
+                </div>
+                <div
+                  style={{ padding: "0.5rem", cursor: "pointer" }}
+                  onClick={() => handleDel(post.id)}
+                >
+                  del
+                </div>
+              </>
+            )}
+
+            {post.isEdit && (
+              <>
+                <div
+                  style={{ padding: "0.5rem", cursor: "pointer" }}
+                  onClick={() => handleSave(post.id)}
+                >
+                  save
+                </div>
+                <div
+                  style={{ padding: "0.5rem", cursor: "pointer" }}
+                  onClick={() => handleCancel(post.id)}
+                >
+                  cancel
+                </div>
+              </>
+            )}
+          </div>
+        ))}
       </div>
     </PageWrapper>
   );
 };
-
 export default Home;

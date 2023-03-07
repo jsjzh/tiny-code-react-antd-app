@@ -5,8 +5,8 @@ import Loading from "@/components/Loading";
 import LayoutBlank from "@/pages/_layouts/Blank";
 import LayoutMain from "@/pages/_layouts/Main";
 
+const Login = lazy(() => import("@/pages/Login"));
 const Home = lazy(() => import("@/pages/Home"));
-const Jump = lazy(() => import("@/pages/Jump"));
 const Test = lazy(() => import("@/pages/Test"));
 
 const NotFound = lazy(() => import("@/pages/results/NotFound"));
@@ -28,10 +28,10 @@ export interface IRoute {
 
 const routes: IRoute[] = [
   {
-    title: "首页",
-    path: "/home",
+    title: "登录",
+    path: "/",
     element: <LayoutBlank />,
-    children: [{ title: "首页", path: "/home", element: lazyLoad(<Home />) }],
+    children: [{ title: "登录", path: "/", element: lazyLoad(<Login />) }],
   },
   {
     title: "测试",
@@ -40,10 +40,10 @@ const routes: IRoute[] = [
     children: [{ title: "测试", path: "/test", element: lazyLoad(<Test />) }],
   },
   {
-    title: "跳转页",
-    path: "/jump",
+    title: "首页",
+    path: "/home",
     element: <LayoutMain />,
-    children: [{ title: "跳转页", path: "/jump", element: lazyLoad(<Jump />) }],
+    children: [{ title: "跳转页", path: "/home", element: lazyLoad(<Home />) }],
   },
   {
     title: "结果页",

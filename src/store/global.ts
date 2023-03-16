@@ -27,10 +27,10 @@ const useGlobalStore = create<IGlobal>()(
             });
           }),
       })),
-      { name: "useGlobalStore" }
+      { name: "useGlobalStore" },
     ),
-    { name: "useGlobalStore" }
-  )
+    { name: "useGlobalStore" },
+  ),
 );
 
 export default useGlobalStore;

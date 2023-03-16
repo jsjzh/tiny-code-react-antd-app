@@ -58,7 +58,7 @@ export const getAPIPrefix = (str: string) => {
 export const getAPIUrl = (prefix: string, endpoint: string) => {
   const url = `${prefix}/${endpoint}`;
   const re = new RegExp(
-    `/+(${endpoint.replace(/^\/+/, "").replace(/\?.*$/, "")})`
+    `/+(${endpoint.replace(/^\/+/, "").replace(/\?.*$/, "")})`,
   );
   return url.replace(re, "/$1");
 };
@@ -105,7 +105,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
   };
   function request<T>(
     endpoint: string,
-    reqConfig: IRequestConfig = {}
+    reqConfig: IRequestConfig = {},
   ): IRequestResult<T> {
     const config = { ...apiConfig, ...reqConfig };
     const {
@@ -160,7 +160,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
   function getJSON<T = any>(
     endpoint: string,
     data: Record<string, string | number | any> = {},
-    config?: IRequestConfig
+    config?: IRequestConfig,
   ) {
     return request<T>(endpoint, { ...config, method: "get", params: data });
   }
@@ -175,7 +175,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
   function postJSON<T = any>(
     endpoint: string,
     data: Record<string, string | number | any> = {},
-    config?: IRequestConfig
+    config?: IRequestConfig,
   ) {
     return request<T>(endpoint, { ...config, method: "post", data });
   }
@@ -205,7 +205,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
   function postForm<T = any>(
     endpoint: string,
     data: FormData | Record<string, string | number> = {},
-    config?: IRequestConfig
+    config?: IRequestConfig,
   ) {
     return request<T>(endpoint, {
       ...config,
@@ -223,7 +223,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
   function postFile(
     endpoint: string,
     files: Record<string, File>,
-    config?: IRequestConfig
+    config?: IRequestConfig,
   ) {
     const isFile = (f: any) =>
       Object.prototype.toString.call(f) === "[object File]";
@@ -245,7 +245,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
   function putJSON<T = any>(
     endpoint: string,
     data: Record<string, string | number | any> = {},
-    config?: IRequestConfig
+    config?: IRequestConfig,
   ) {
     return request<T>(endpoint, { ...config, method: "put", data });
   }
@@ -259,7 +259,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
   function patchJSON<T = any>(
     endpoint: string,
     data: Record<string, string | number> = {},
-    config?: IRequestConfig
+    config?: IRequestConfig,
   ) {
     return request<T>(endpoint, { ...config, method: "patch", data });
   }
@@ -273,7 +273,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
   function deleteJSON<T = any>(
     endpoint: string,
     data: Record<string, string | number> = {},
-    config?: IRequestConfig
+    config?: IRequestConfig,
   ) {
     return request<T>(endpoint, { ...config, method: "delete", data });
   }
@@ -281,7 +281,10 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
   function jsonp<T = any>(
     endpoint: string,
     params: Record<string, string | number> = {},
-    config: Omit<IRequestConfig, keyof AxiosRequestConfig | "handleOption"> = {}
+    config: Omit<
+      IRequestConfig,
+      keyof AxiosRequestConfig | "handleOption"
+    > = {},
   ): Promise<T> {
     const { handleResp = (resp: any) => resp.data } = config;
     return new Promise((resolve, reject) => {
@@ -296,7 +299,7 @@ const createAPI = (host: string, apiConfig: IRequestConfig = {}) => {
             return reject(new APIError(`[${resp.code}] 请求失败 ${resp.msg}`));
           }
           resolve(handleResp(resp));
-        }
+        },
       );
     });
   }

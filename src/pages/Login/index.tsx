@@ -29,7 +29,7 @@ const Login: React.FC = () => {
           draft.userInfo = user;
         });
       },
-    }
+    },
   );
 
   const handleQuery = (count: number) => {

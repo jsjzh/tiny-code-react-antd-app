@@ -13,7 +13,9 @@
     "start": "pnpm run dev",
     "dev": "vite --port 8080 --open",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write --cache --parser typescript \"**/*.[tj]s?(x)\"",
+    "format:check": "prettier --check --cache --parser typescript \"**/*.[tj]s?(x)\""
   },
   "repository": {
     "type": "git",

@@ -6,7 +6,6 @@ module.exports = {
   // 大括号内的首尾需要空格
   bracketSpacing: true,
   cursorOffset: -1,
-  editorconfig: false,
   embeddedLanguageFormatting: "auto",
   // 换行符使用 lf
   endOfLine: "lf",

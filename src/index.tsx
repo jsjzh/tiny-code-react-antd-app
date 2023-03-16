@@ -11,6 +11,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <SWRConfig value={{ dedupingInterval: 0 }}>
       <App />
     </SWRConfig>
-  </HashRouter>
+  </HashRouter>,
   // </React.StrictMode>
 );

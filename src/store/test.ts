@@ -13,12 +13,12 @@ const useTestStore = create(
             set((draft) => {
               draft.num = draft.num + count;
             }),
-        }))
+        })),
       ),
-      { name: "useTestStore" }
+      { name: "useTestStore" },
     ),
-    { name: "useTestStore" }
-  )
+    { name: "useTestStore" },
+  ),
 );
 
 export default useTestStore;

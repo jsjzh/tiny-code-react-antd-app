@@ -36,7 +36,7 @@ const Home: React.FC = () => {
             .map((post) => ({ ...post, isEdit: false, isNew: false }));
         });
       },
-    }
+    },
   );
 
   const handleAdd = () => {
@@ -74,7 +74,7 @@ const Home: React.FC = () => {
 
   const handleSave = async (id: number) => {
     const $post: HTMLInputElement = document.getElementById(
-      `post_id_${id}`
+      `post_id_${id}`,
     ) as HTMLInputElement;
 
     if (!$post) return;

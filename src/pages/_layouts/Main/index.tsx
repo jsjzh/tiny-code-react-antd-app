@@ -15,7 +15,7 @@ const createLinks = (routes: IRoute[]) => {
       results.push(
         <Link key={route.path} to={route.path}>
           {route.title} &nbsp;
-        </Link>
+        </Link>,
       );
     }
   }

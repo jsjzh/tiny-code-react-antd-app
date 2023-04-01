@@ -14,7 +14,7 @@ import styled from "styled-components";
 
 const siderWidth = "15vw";
 const contentWidth = `calc(100vw - ${siderWidth})`;
-const contentHeadHeight = "7vh";
+const contentHeadHeight = "3rem";
 
 const Container = styled.div`
   display: flex;

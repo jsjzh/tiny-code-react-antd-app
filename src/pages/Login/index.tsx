@@ -6,8 +6,21 @@ import { useImmer } from "use-immer";
 import queryString from "query-string";
 import { allAPI } from "@/api";
 import { useGlobalStore } from "@/store";
-import PageWrapper from "@/components/PageWrapper";
-import { Button, Select } from "antd";
+import { Button, Select, Space } from "antd";
+import styled from "styled-components";
+
+const LoginContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LoginContent = styled.div`
+  width: 30rem;
+  text-align: center;
+`;
 
 const mapStateToProps = pick(["update"]);
 
@@ -19,7 +32,14 @@ const Login: React.FC = () => {
 
   const [pageStatus, updatePageStatus] = useImmer<{ id: number }>({ id: 1 });
 
-  const { data: users } = useSWR(["getUsers"], () => allAPI.getUsers());
+  const { data: users } = useSWR(["getUsers"], () => allAPI.getUsers(), {
+    onSuccess(data) {
+      updatePageStatus((draft) => {
+        const ids = data.map((user) => user.id);
+        draft.id = ids[Number((Math.random() * ids.length).toFixed())];
+      });
+    },
+  });
 
   const handleChange = useCallback((value: number) => {
     updatePageStatus((draft) => {
@@ -35,25 +55,26 @@ const Login: React.FC = () => {
   }, [pageStatus.id]);
 
   return (
-    <PageWrapper>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Select
-          value={pageStatus.id}
-          options={users?.map((user) => ({ label: user.name, value: user.id }))}
-          onChange={handleChange}
-        />
-
-        <Button type="primary" onClick={handleJump}>
-          Login
-        </Button>
-      </div>
-    </PageWrapper>
+    <LoginContainer>
+      <LoginContent>
+        <div style={{ marginBottom: "1rem" }}>
+          <Select
+            style={{ width: "50%" }}
+            value={pageStatus.id}
+            options={users?.map((user) => ({
+              label: user.name,
+              value: user.id,
+            }))}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <Button type="primary" onClick={handleJump}>
+            Login
+          </Button>
+        </div>
+      </LoginContent>
+    </LoginContainer>
   );
 };
 

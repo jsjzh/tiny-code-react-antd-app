@@ -12,6 +12,8 @@ import { ConfigProvider } from "antd";
 import zhCN from "antd/es/locale/zh_CN";
 import "antd/dist/reset.css";
 
+import "./index.css";
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <HashRouter>
     <ConfigProvider locale={zhCN}>

@@ -1,8 +1,8 @@
 {
-  "name": "tiny-code-react",
+  "name": "tiny-code-react-antd-app-antd-app",
   "private": true,
   "version": "0.0.1",
-  "description": "tiny-code-react",
+  "description": "tiny-code-react-antd-app-antd-app",
   "type": "module",
   "keywords": [
     "tiny-code"
@@ -21,13 +21,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jsjzh/tiny-code-react.git"
+    "url": "git+https://github.com/jsjzh/tiny-code-react-antd-app-antd-app.git"
   },
   "bugs": {
-    "url": "https://github.com/jsjzh/tiny-code-react/issues"
+    "url": "https://github.com/jsjzh/tiny-code-react-antd-app-antd-app/issues"
   },
-  "homepage": "https://github.com/jsjzh/tiny-code-react#readme",
+  "homepage": "https://github.com/jsjzh/tiny-code-react-antd-app-antd-app#readme",
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "antd": "^5.3.3",
     "axios": "^1.3.4",
     "dayjs": "^1.11.7",
     "immer": "^9.0.21",

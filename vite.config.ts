@@ -14,6 +14,7 @@ export default defineConfig((config) => {
           manualChunks: {
             "react-vendor": ["react", "react-dom", "react-router-dom"],
             "react-utils-vendor": ["zustand", "use-immer", "swr"],
+            "antd-vendor": ["antd", "@ant-design/icons"],
             "request-vendor": ["axios", "jsonp", "query-string"],
             "utils-vendor": ["dayjs", "immer", "ramda"],
           },

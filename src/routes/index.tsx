@@ -1,8 +1,8 @@
 import React, { lazy, Suspense } from "react";
+import { Spin } from "antd";
 
 import LayoutBlank from "@/pages/_layouts/Blank";
 import LayoutContainer from "@/pages/_layouts/Container";
-import { Spin } from "antd";
 
 const Login = lazy(() => import("@/pages/Login"));
 const Home = lazy(() => import("@/pages/Home"));

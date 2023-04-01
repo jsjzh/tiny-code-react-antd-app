@@ -18,7 +18,7 @@ const containerScrollToTop = () => {
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-const mapStateToProps = pick(["isInit", "updateGlobal"]);
+const mapStateToProps = pick(["currentUser"]);
 
 const LayoutContainer: React.FC = () => {
   const location = useLocation();
@@ -109,7 +109,7 @@ const LayoutContainer: React.FC = () => {
           <div>
             <Dropdown menu={{ items, onClick }}>
               <Space>
-                <span>用户，您好</span>
+                <span>hello, {global.currentUser?.name}</span>
                 <DownOutlined />
               </Space>
             </Dropdown>

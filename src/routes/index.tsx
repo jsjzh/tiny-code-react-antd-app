@@ -47,7 +47,7 @@ const routes: IRoute[] = [
     children: [{ title: "测试", path: "/test", element: lazyLoad(<Test />) }],
   },
   {
-    title: "结果页",
+    title: "结果",
     path: "/results",
     element: <LayoutMain />,
     children: [

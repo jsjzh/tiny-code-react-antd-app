@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Dropdown, Menu, Space, Spin } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 
@@ -85,7 +85,7 @@ const LayoutContainer: React.FC = () => {
             border: "1px solid rgba(5, 5, 5, 0.06)",
           }}
         >
-          IT 账台
+          管理系统
         </div>
 
         <Menu

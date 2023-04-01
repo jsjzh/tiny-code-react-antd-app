@@ -12,7 +12,7 @@ import { pick } from "ramda";
 import KeepAlive from "@/components/KeepAlive";
 import styled from "styled-components";
 
-const siderWidth = "20vw";
+const siderWidth = "15vw";
 const contentWidth = `calc(100vw - ${siderWidth})`;
 const contentHeadHeight = "7vh";
 

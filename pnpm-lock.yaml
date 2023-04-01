@@ -35,8 +35,8 @@ dependencies:
     specifier: ^0.8.1
     version: 0.8.1(immer@9.0.21)(react@18.2.0)
   zustand:
-    specifier: ^4.3.6
-    version: 4.3.6(immer@9.0.21)(react@18.2.0)
+    specifier: ^4.3.7
+    version: 4.3.7(immer@9.0.21)(react@18.2.0)
 
 devDependencies:
   '@types/jsonp':
@@ -2568,8 +2568,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zustand@4.3.6(immer@9.0.21)(react@18.2.0):
-    resolution: {integrity: sha512-6J5zDxjxLE+yukC2XZWf/IyWVKnXT9b9HUv09VJ/bwGCpKNcaTqp7Ws28Xr8jnbvnZcdRaidztAPsXFBIqufiw==}
+  /zustand@4.3.7(immer@9.0.21)(react@18.2.0):
+    resolution: {integrity: sha512-dY8ERwB9Nd21ellgkBZFhudER8KVlelZm8388B5nDAXhO/+FZDhYMuRnqDgu5SYyRgz/iaf8RKnbUs/cHfOGlQ==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       immer: '>=9.0'

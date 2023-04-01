@@ -1,9 +1,8 @@
 import React, { lazy, Suspense } from "react";
 
-import Loading from "@/components/Loading";
-
 import LayoutBlank from "@/pages/_layouts/Blank";
 import LayoutContainer from "@/pages/_layouts/Container";
+import { Spin } from "antd";
 
 const Login = lazy(() => import("@/pages/Login"));
 const Home = lazy(() => import("@/pages/Home"));
@@ -15,7 +14,7 @@ const NotAuthorized = lazy(() => import("@/pages/results/NotAuthorized"));
 const ServerError = lazy(() => import("@/pages/results/ServerError"));
 
 const lazyLoad = (children: React.ReactNode) => (
-  <Suspense fallback={<Loading />}>{children}</Suspense>
+  <Suspense fallback={<Spin spinning size="large" />}>{children}</Suspense>
 );
 
 export interface IRoute {

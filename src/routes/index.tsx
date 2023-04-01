@@ -35,16 +35,16 @@ const routes: IRoute[] = [
     children: [{ title: "登录", path: "/", element: lazyLoad(<Login />) }],
   },
   {
+    title: "首页",
+    path: "/home",
+    element: <LayoutMain />,
+    children: [{ title: "首页", path: "/home", element: lazyLoad(<Home />) }],
+  },
+  {
     title: "测试",
     path: "/test",
     element: <LayoutMain />,
     children: [{ title: "测试", path: "/test", element: lazyLoad(<Test />) }],
-  },
-  {
-    title: "首页",
-    path: "/home",
-    element: <LayoutMain />,
-    children: [{ title: "跳转页", path: "/home", element: lazyLoad(<Home />) }],
   },
   {
     title: "结果页",

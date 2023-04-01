@@ -1,13 +1,12 @@
 import React from "react";
-
-import PageWrapper from "@/components/PageWrapper";
-
-import "./index.css";
+import { Result } from "antd";
 
 const NotAuthorized: React.FC = () => (
-  <PageWrapper>
-    <div>403 NotAuthorized</div>
-  </PageWrapper>
+  <Result
+    status="403"
+    title="403"
+    subTitle="Sorry, you are not authorized to access this page."
+  />
 );
 
 export default NotAuthorized;

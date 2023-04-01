@@ -1,13 +1,8 @@
 import React from "react";
-
-import PageWrapper from "@/components/PageWrapper";
-
-import "./index.css";
+import { Result } from "antd";
 
 const ServerError: React.FC = () => (
-  <PageWrapper>
-    <div>500 ServerError</div>
-  </PageWrapper>
+  <Result status="500" title="500" subTitle="Sorry, something went wrong." />
 );
 
 export default ServerError;

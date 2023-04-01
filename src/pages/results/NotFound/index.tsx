@@ -1,13 +1,12 @@
 import React from "react";
-
-import PageWrapper from "@/components/PageWrapper";
-
-import "./index.css";
+import { Result } from "antd";
 
 const NotFound: React.FC = () => (
-  <PageWrapper>
-    <div>404 NotFound</div>
-  </PageWrapper>
+  <Result
+    status="404"
+    title="404"
+    subTitle="Sorry, the page you visited does not exist."
+  />
 );
 
 export default NotFound;

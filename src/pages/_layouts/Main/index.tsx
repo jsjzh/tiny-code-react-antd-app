@@ -63,7 +63,7 @@ const LayoutContainer: React.FC = () => {
 
   const onClick: MenuProps["onClick"] = (props) => {
     if (props.key === "quit") {
-      console.log("quit");
+      window.location.href = `${window.location.origin}${window.location.pathname}`;
     }
   };
 

@@ -8,7 +8,7 @@ export default defineConfig((config) => {
     plugins: [react()],
     resolve: { alias: { "@": path.resolve("./src") } },
     build: {
-      sourcemap: config.mode === "development",
+      sourcemap: config.mode !== "production",
       rollupOptions: {
         output: {
           manualChunks: {

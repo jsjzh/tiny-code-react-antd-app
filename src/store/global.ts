@@ -3,9 +3,7 @@ import { immer } from "zustand/middleware/immer";
 import { devtools, persist } from "zustand/middleware";
 
 interface IGlobalData {
-  currentUser?: T.User;
-
-  [k: string]: any;
+  currentUser?: API.User;
 }
 
 interface IGlobalFunc {
@@ -23,6 +21,7 @@ const useGlobalStore = create<IGlobal>()(
         update: (data) =>
           set((draft) => {
             Object.keys(data).forEach((key) => {
+              // @ts-ignore
               draft[key] = data[key];
             });
           }),

@@ -18,7 +18,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const jump = pipe(queryString.stringifyUrl as any, navigate);
 
-  const [pageData, updatePageData] = useImmer<{ userInfo?: T.User }>({});
+  const [pageData, updatePageData] = useImmer<{ userInfo?: API.User }>({});
   const [pageStatus, updatePageStatus] = useImmer<{ id: number }>({ id: 1 });
 
   const { isLoading } = useSWR(

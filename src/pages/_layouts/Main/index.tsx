@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, Link } from "react-router-dom";
 
 import routes, { IRoute } from "@/routes";
+import KeepAlive from "@/components/KeepAlive";
 
 const createLinks = (routes: IRoute[]) => {
   const results: React.ReactNode[] = [];
@@ -27,8 +28,7 @@ const Main: React.FC = () => {
   return (
     <div>
       <div>{createLinks(routes)}</div>
-
-      <Outlet />
+      <KeepAlive include={[]} keys={[]} />
     </div>
   );
 };

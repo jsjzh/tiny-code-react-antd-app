@@ -20,7 +20,7 @@ const Home: React.FC = () => {
   const global = useGlobalStore(mapStateToProps);
 
   const [pageData, updatePageData] = useImmer<{
-    posts: (T.Post & IPostExtend)[];
+    posts: (API.Post & IPostExtend)[];
   }>({
     posts: [],
   });
@@ -42,7 +42,7 @@ const Home: React.FC = () => {
   const handleAdd = () => {
     const _num = num++;
 
-    const newPost: T.Post & IPostExtend = {
+    const newPost: API.Post & IPostExtend = {
       id: _num,
       body: "no data",
       title: String(_num),

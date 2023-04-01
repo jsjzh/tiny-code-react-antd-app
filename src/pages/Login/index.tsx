@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { pick, pipe } from "ramda";
@@ -9,6 +9,7 @@ import { useGlobalStore } from "@/store";
 import PageWrapper from "@/components/PageWrapper";
 import Loading from "@/components/Loading";
 import dayjs from "dayjs";
+import { Button } from "antd";
 
 const mapStateToProps = pick(["update"]);
 
@@ -79,19 +80,27 @@ const Login: React.FC = () => {
             margin: "1rem",
           }}
         >
-          <button disabled={isLoading} onClick={() => handleQuery(-1)}>
+          <Button
+            type="primary"
+            disabled={isLoading}
+            onClick={() => handleQuery(-1)}
+          >
             选择上个用户
-          </button>
-          <button disabled={isLoading} onClick={() => handleQuery(1)}>
+          </Button>
+          <Button
+            type="primary"
+            disabled={isLoading}
+            onClick={() => handleQuery(1)}
+          >
             选择下个用户
-          </button>
+          </Button>
         </div>
 
         <div style={{ textAlign: "center" }}>
           <div>{dayjs().format("YYYY-MM-DD HH:mm:ss")}</div>
-          <button disabled={isLoading} onClick={handleJump}>
+          <Button type="primary" disabled={isLoading} onClick={handleJump}>
             登录
-          </button>
+          </Button>
         </div>
       </div>
     </PageWrapper>

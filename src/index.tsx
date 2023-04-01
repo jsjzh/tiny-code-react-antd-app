@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { HashRouter, BrowserRouter, MemoryRouter } from "react-router-dom";
 import App from "@/pages/App";
@@ -15,13 +14,11 @@ import "dayjs/locale/zh-cn";
 dayjs.locale("zh-cn");
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <HashRouter>
-      <ConfigProvider locale={zhCN}>
-        <SWRConfig value={{ dedupingInterval: 0 }}>
-          <App />
-        </SWRConfig>
-      </ConfigProvider>
-    </HashRouter>
-  </React.StrictMode>,
+  <HashRouter>
+    <ConfigProvider locale={zhCN}>
+      <SWRConfig value={{ dedupingInterval: 0 }}>
+        <App />
+      </SWRConfig>
+    </ConfigProvider>
+  </HashRouter>,
 );

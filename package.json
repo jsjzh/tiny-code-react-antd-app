@@ -11,7 +11,7 @@
   "license": "MIT",
   "scripts": {
     "start": "pnpm run dev",
-    "dev": "vite --host localhost --port 8080 --open",
+    "dev": "vite --host localhost --port 8080 --open --force",
     "build:dev": "tsc && vite build --mode development",
     "build:pre": "tsc && vite build --mode preview",
     "build:prod": "tsc && vite build --mode production",

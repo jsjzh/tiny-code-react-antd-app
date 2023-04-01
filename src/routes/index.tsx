@@ -28,6 +28,7 @@ export interface IRoute {
 
 const routes: IRoute[] = [
   {
+    hide: true,
     title: "登录",
     path: "/",
     element: <LayoutBlank />,
@@ -36,7 +37,7 @@ const routes: IRoute[] = [
   {
     title: "测试",
     path: "/test",
-    element: <LayoutBlank />,
+    element: <LayoutMain />,
     children: [{ title: "测试", path: "/test", element: lazyLoad(<Test />) }],
   },
   {
@@ -48,7 +49,7 @@ const routes: IRoute[] = [
   {
     title: "结果页",
     path: "/results",
-    element: <LayoutBlank />,
+    element: <LayoutMain />,
     children: [
       {
         title: "无权限",

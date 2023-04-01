@@ -3,7 +3,7 @@ import React, { lazy, Suspense } from "react";
 import Loading from "@/components/Loading";
 
 import LayoutBlank from "@/pages/_layouts/Blank";
-import LayoutMain from "@/pages/_layouts/Main";
+import LayoutContainer from "@/pages/_layouts/Container";
 
 const Login = lazy(() => import("@/pages/Login"));
 const Home = lazy(() => import("@/pages/Home"));
@@ -38,25 +38,25 @@ const routes: IRoute[] = [
   {
     title: "首页",
     path: "/home",
-    element: <LayoutMain />,
+    element: <LayoutContainer />,
     children: [{ title: "首页", path: "/home", element: lazyLoad(<Home />) }],
   },
   {
     title: "待办",
     path: "/todo",
-    element: <LayoutMain />,
+    element: <LayoutContainer />,
     children: [{ title: "待办", path: "/todo", element: lazyLoad(<Todo />) }],
   },
   {
     title: "测试",
     path: "/test",
-    element: <LayoutMain />,
+    element: <LayoutContainer />,
     children: [{ title: "测试", path: "/test", element: lazyLoad(<Test />) }],
   },
   {
     title: "结果",
     path: "/results",
-    element: <LayoutMain />,
+    element: <LayoutContainer />,
     children: [
       {
         title: "无权限",

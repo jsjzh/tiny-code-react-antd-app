@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { pick, pipe } from "ramda";
@@ -7,9 +7,7 @@ import queryString from "query-string";
 import { allAPI } from "@/api";
 import { useGlobalStore } from "@/store";
 import PageWrapper from "@/components/PageWrapper";
-import Loading from "@/components/Loading";
-import dayjs from "dayjs";
-import { Button } from "antd";
+import { Button, Select } from "antd";
 
 const mapStateToProps = pick(["update"]);
 
@@ -17,91 +15,43 @@ const Login: React.FC = () => {
   const global = useGlobalStore(mapStateToProps);
 
   const navigate = useNavigate();
-  const jump = pipe(queryString.stringifyUrl as any, navigate);
+  const jump = useCallback(pipe(queryString.stringifyUrl as any, navigate), []);
 
-  const [pageData, updatePageData] = useImmer<{ userInfo?: API.User }>({});
   const [pageStatus, updatePageStatus] = useImmer<{ id: number }>({ id: 1 });
 
-  const { isLoading } = useSWR(
-    ["getUsersId", pageStatus.id],
-    ([, id]) => allAPI.getUsersId({ id }),
-    {
-      onSuccess(user) {
-        updatePageData((draft) => {
-          draft.userInfo = user;
-        });
-      },
-    },
-  );
+  const { data: users } = useSWR(["getUsers"], () => allAPI.getUsers());
 
-  const handleQuery = (count: number) => {
-    const _id = pageStatus.id + count;
+  const handleChange = useCallback((value: number) => {
     updatePageStatus((draft) => {
-      draft.id = _id > 10 ? 10 : _id < 1 ? 1 : _id;
+      draft.id = value;
     });
-  };
+  }, []);
 
-  const handleJump = () => {
-    global.update({ currentUser: pageData.userInfo });
-    jump({
-      url: "/home",
-      query: { from: "/login", id: pageStatus.id },
+  const handleJump = useCallback(() => {
+    allAPI.getUsersId({ id: pageStatus.id }).then((user) => {
+      global.update({ currentUser: user });
+      jump({ url: "/home" });
     });
-  };
+  }, [pageStatus.id]);
 
   return (
-    <PageWrapper
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div style={{ width: "20rem" }}>
-        <div>
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <>
-              <div>id: {pageData.userInfo?.id}</div>
-              <div>name: {pageData.userInfo?.name}</div>
-              <div>username: {pageData.userInfo?.username}</div>
-              <div>email: {pageData.userInfo?.email}</div>
-              <div>phone: {pageData.userInfo?.phone}</div>
-              <div>website: {pageData.userInfo?.website}</div>
-            </>
-          )}
-        </div>
+    <PageWrapper>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Select
+          value={pageStatus.id}
+          options={users?.map((user) => ({ label: user.name, value: user.id }))}
+          onChange={handleChange}
+        />
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            margin: "1rem",
-          }}
-        >
-          <Button
-            type="primary"
-            disabled={isLoading}
-            onClick={() => handleQuery(-1)}
-          >
-            选择上个用户
-          </Button>
-          <Button
-            type="primary"
-            disabled={isLoading}
-            onClick={() => handleQuery(1)}
-          >
-            选择下个用户
-          </Button>
-        </div>
-
-        <div style={{ textAlign: "center" }}>
-          <div>{dayjs().format("YYYY-MM-DD HH:mm:ss")}</div>
-          <Button type="primary" disabled={isLoading} onClick={handleJump}>
-            登录
-          </Button>
-        </div>
+        <Button type="primary" onClick={handleJump}>
+          Login
+        </Button>
       </div>
     </PageWrapper>
   );

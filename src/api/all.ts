@@ -8,6 +8,8 @@ const omitId = omit(["id"]);
 export const getUsersId = (data: Pick<API.User, "id">) =>
   api.getJSON<API.User>(`/users/${data.id}`);
 
+export const getUsers = () => api.getJSON<API.User[]>(`/users`);
+
 export const getPostsId = (data: Pick<API.Post, "id">) =>
   api.getJSON<API.Post>(`/posts/${data.id}`);
 

@@ -7,6 +7,7 @@ import LayoutMain from "@/pages/_layouts/Main";
 
 const Login = lazy(() => import("@/pages/Login"));
 const Home = lazy(() => import("@/pages/Home"));
+const Todo = lazy(() => import("@/pages/Todo"));
 const Test = lazy(() => import("@/pages/Test"));
 
 const NotFound = lazy(() => import("@/pages/results/NotFound"));
@@ -39,6 +40,12 @@ const routes: IRoute[] = [
     path: "/home",
     element: <LayoutMain />,
     children: [{ title: "首页", path: "/home", element: lazyLoad(<Home />) }],
+  },
+  {
+    title: "待办",
+    path: "/todo",
+    element: <LayoutMain />,
+    children: [{ title: "待办", path: "/todo", element: lazyLoad(<Todo />) }],
   },
   {
     title: "测试",

@@ -8,6 +8,7 @@ import { allAPI } from "@/api";
 import { useGlobalStore } from "@/store";
 import PageWrapper from "@/components/PageWrapper";
 import Loading from "@/components/Loading";
+import dayjs from "dayjs";
 
 const mapStateToProps = pick(["update"]);
 
@@ -87,6 +88,7 @@ const Login: React.FC = () => {
         </div>
 
         <div style={{ textAlign: "center" }}>
+          <div>{dayjs().format("YYYY-MM-DD HH:mm:ss")}</div>
           <button disabled={isLoading} onClick={handleJump}>
             登录
           </button>

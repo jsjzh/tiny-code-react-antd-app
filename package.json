@@ -29,8 +29,8 @@
   },
   "homepage": "https://github.com/jsjzh/tiny-code-react-antd-app-antd-app#readme",
   "dependencies": {
-    "@ant-design/icons": "^5.2.2",
-    "antd": "^5.8.0",
+    "@ant-design/icons": "^5.2.4",
+    "antd": "^5.8.1",
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
     "immer": "^9.0.21",
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@types/jsonp": "^0.2.1",
-    "@types/node": "^18.17.1",
+    "@types/node": "^18.17.2",
     "@types/ramda": "^0.28.25",
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
